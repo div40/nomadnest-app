@@ -7,27 +7,14 @@ const Header = () => {
   const { user } = useContext(UserContext);
   return (
     <div>
-      <header className=" flex items-center justify-between">
+      <header className="flex items-center justify-between ">
         <Link
           to={"/"}
           href=""
           className="logo flex items-center gap-1 text-primary"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-10 h-10"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
-            />
-          </svg>
-          <span className="text-2xl font-bold text-primary">booking</span>
+          <img src="/bookmark.svg" alt="logo" className="w-[30px] h-[30px]" />
+          <span className="text-2xl font-bold text-primary">NomadNest</span>
         </Link>
         <div className="flex gap-3 border border-gray-300 rounded-full py-2 pl-6 pr-3 shadow-md items-center justify-center cursor-pointer font-sans">
           <div>
