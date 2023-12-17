@@ -27,6 +27,25 @@ const PlacesPage = () => {
     setPhotoLink("");
   }
 
+  function uploadPhoto(e) {
+    const files = e.target.files;
+    const data = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      data.set("photos", files[i]);
+    }
+
+    axios
+      .post("/upload", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((res) => {
+        const { data: filenames } = res;
+        setAddedPhotos((prev) => {
+          return [...prev, ...filenames];
+        });
+      });
+  }
+
   return (
     <div className="flex items-center justify-center mt-10">
       {action !== "new" && (
@@ -122,20 +141,21 @@ const PlacesPage = () => {
                 Add Photo
               </button>
             </div>
+
             <div className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
               {addedPhotos.length > 0 &&
                 addedPhotos.map((link) => (
-                  <div>
+                  <div className="h-32 flex">
                     <img
-                      className="rounded 2xl"
+                      className="rounded 2xl w-full object-cover"
                       src={"http://127.0.0.1:4000/uploads/" + link}
                       alt="image"
                     />
                   </div>
                 ))}
-              <button className="w-[300px] bg-gray-200 border-2 border-gray-400 h-[300px] flex items-center rounded-md justify-center text-5xl text-gray-500">
-                +
-              </button>
+              <label className="w-[300px] bg-gray-200 border-2 border-gray-400 h-[300px] flex items-center rounded-md justify-center text-5xl text-gray-500 cursor-pointer">
+                <input type="file" className="hidden" onChange={uploadPhoto} />+
+              </label>
             </div>
             <div className="flex items-center justify-center mt-20">
               <button className="bg-primary text-white px-8 py-2 rounded-full">
