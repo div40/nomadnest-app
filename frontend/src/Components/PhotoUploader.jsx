@@ -64,7 +64,7 @@ const PhotoUploader = ({ addedPhotos, onChange }) => {
         </button>
       </div>
 
-      <div className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+      <div className="mt-2 grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {addedPhotos.length > 0 &&
           addedPhotos.map((link) => (
             <div className="h-32 flex relative" key={link}>
@@ -129,7 +129,7 @@ const PhotoUploader = ({ addedPhotos, onChange }) => {
               </button>
             </div>
           ))}
-        <label className="w-[300px] bg-gray-200 border-2 border-gray-400 h-[300px] flex items-center rounded-md justify-center text-5xl text-gray-500 cursor-pointer">
+        <label className="w-56 bg-gray-200 border-2 border-gray-400 h-32 flex items-center rounded-md justify-center text-5xl text-gray-500 cursor-pointer">
           <input type="file" className="hidden" onChange={uploadPhoto} />+
         </label>
       </div>

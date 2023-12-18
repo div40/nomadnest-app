@@ -16,6 +16,7 @@ const PlacesForm = () => {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [maxGuests, setMaxGuests] = useState(1);
+  const [price, setPrice] = useState("0");
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
@@ -33,6 +34,7 @@ const PlacesForm = () => {
       setCheckIn(data.checkIn);
       setCheckOut(data.checkOut);
       setMaxGuests(data.maxGuests);
+      setPrice(data.price);
     });
   }, [id]);
 
@@ -48,6 +50,7 @@ const PlacesForm = () => {
       checkIn,
       checkOut,
       maxGuests,
+      price,
     };
     if (id) {
       //update place
@@ -67,7 +70,7 @@ const PlacesForm = () => {
   }
   return (
     <>
-      <div className="w-full px-[300px] mt-0">
+      <div className="w-full px-4 md:px-6 lg:px-8 mt-0">
         <AccountNav />
         <form onSubmit={savePlace}>
           <h2 className="mx-2 font-medium text-gray-700 text-lg">Title</h2>
@@ -105,7 +108,7 @@ const PlacesForm = () => {
             onChange={(e) => setExtraInfo(e.target.value)}
           ></textarea>
           <h2 className="mx-2 font-medium text-gray-700 text-lg">Timings</h2>
-          <div className="grid gap-4 mt-2 sm:grid-cols-3">
+          <div className="grid gap-4 mt-2 grid-cols-2 md:grid-cols-4">
             <div className="text-center">
               <h3>Check-In Time</h3>
               <input
@@ -131,6 +134,15 @@ const PlacesForm = () => {
                 placeholder="2"
                 value={maxGuests}
                 onChange={(e) => setMaxGuests(e.target.value)}
+              />
+            </div>
+            <div className="text-center">
+              <h3>Price per Night</h3>
+              <input
+                type="text"
+                placeholder="2"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
               />
             </div>
           </div>
