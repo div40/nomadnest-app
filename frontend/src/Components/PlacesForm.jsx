@@ -1,23 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PhotoUploader from "./PhotoUploader";
 import Perks from "./Perks";
 import AccountNav from "./AccountNav";
+import { Navigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 const PlacesForm = () => {
+  const { id } = useParams();
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
   const [description, setDescription] = useState("");
   const [extraInfo, setExtraInfo] = useState("");
   const [addedPhotos, setAddedPhotos] = useState([]);
-
   const [perks, setPerks] = useState([]);
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [maxGuests, setMaxGuests] = useState(1);
+  const [redirect, setRedirect] = useState(false);
 
-  async function addNewPlace(e) {
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+    axios.get("/places/" + id).then((response) => {
+      const { data } = response;
+      setTitle(data.title);
+      setAddress(data.address);
+      setDescription(data.description);
+      setExtraInfo(data.extraInfo);
+      setAddedPhotos(data.photos);
+      setPerks(data.perks);
+      setCheckIn(data.checkIn);
+      setCheckOut(data.checkOut);
+      setMaxGuests(data.maxGuests);
+    });
+  }, [id]);
+
+  async function savePlace(e) {
     e.preventDefault();
-    const { data } = await axios.post("/places", {
+    const placeData = {
       title,
       address,
       description,
@@ -27,13 +48,28 @@ const PlacesForm = () => {
       checkIn,
       checkOut,
       maxGuests,
-    });
+    };
+    if (id) {
+      //update place
+      await axios.put("/places", {
+        id,
+        ...placeData,
+      });
+      setRedirect(true);
+    } else {
+      await axios.post("/places", placeData);
+      setRedirect(true);
+    }
+  }
+
+  if (redirect) {
+    return <Navigate to={"/account/places"} />;
   }
   return (
     <>
       <div className="w-full px-[300px] mt-0">
         <AccountNav />
-        <form onSubmit={addNewPlace}>
+        <form onSubmit={savePlace}>
           <h2 className="mx-2 font-medium text-gray-700 text-lg">Title</h2>
           <input
             type="text"
