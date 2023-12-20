@@ -12,3 +12,7 @@ textarea{
 button.login{
     @apply w-full py-2 my-2 text-white rounded-lg bg-primary hover:bg-btnhover;
 }
+
+.fullcover{
+    width: 100vw;
+}

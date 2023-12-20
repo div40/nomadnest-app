@@ -7,28 +7,35 @@ const Header = () => {
   const { user } = useContext(UserContext);
   return (
     <div>
-      <header className="flex items-center justify-between ">
+      <header className="flex items-center justify-around w-full gap-3 pb-4 border-b border-gray-300 shadow-sm md:items-center md:gap-0 md:justify-between shadow-gray-300">
         <Link
           to={"/"}
-          href=""
-          className="logo flex items-center gap-1 text-primary"
+          className="flex items-center gap-1 pl-2 md:pl-8 logo text-primary"
         >
-          <img src="/bookmark.svg" alt="logo" className="w-[30px] h-[30px]" />
-          <span className="text-2xl font-bold text-primary">NomadNest</span>
+          <img
+            src="/bookmark.svg"
+            alt="logo"
+            className="md:w-[30px] md:h-[30px] w-[40px] h-[40px] object-cover"
+          />
+          <span className="hidden text-2xl font-bold md:block text-primary">
+            NomadNest
+          </span>
         </Link>
-        <div className="flex gap-3 border border-gray-300 rounded-full py-2 pl-6 pr-3 shadow-md items-center justify-center cursor-pointer font-sans">
+        <div className="flex items-center justify-center gap-1 py-1 pl-2 pr-3 font-sans border border-gray-300 rounded-full shadow-md cursor-pointer md:py-2 md:pl-6 md:gap-3">
           <div>
-            <h1 className="font-semibold">Anywhere</h1>
+            <h1 className="text-sm font-semibold md:text-base">Anywhere</h1>
           </div>
-          <div className="border-l border-gray-300 h-6"> </div>
+          <div className="h-6 border-l border-gray-300"> </div>
           <div>
-            <h1 className="font-semibold">Any week</h1>
+            <h1 className="text-sm font-semibold md:text-base">Any week</h1>
           </div>
-          <div className="border-l border-gray-300 h-6"> </div>
+          <div className="h-6 border-l border-gray-300"> </div>
           <div>
-            <h1 className="font-light text-gray-500">Add guests</h1>
+            <h1 className="text-sm font-light text-gray-500 md:text-base">
+              Add guests
+            </h1>
           </div>
-          <button className="bg-primary rounded-full aspect-square p-2">
+          <button className="p-1 rounded-full md:p-2 bg-primary aspect-square">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -47,7 +54,7 @@ const Header = () => {
         </div>
         <Link
           to={user ? "/account" : "/login"}
-          className="flex gap-3 border border-gray-300 rounded-full p-2 items-center justify-center cursor-pointer"
+          className="flex items-center justify-center gap-2 p-1 pr-2 mr-6 border border-gray-300 rounded-full cursor-pointer md:pr-4 md:gap-3 md:p-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +62,7 @@ const Header = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-6 h-6 font-extrabold"
           >
             <path
               strokeLinecap="round"
@@ -63,12 +70,12 @@ const Header = () => {
               d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
             />
           </svg>
-          <div className="bg-gray-400 rounded-full aspect-square text-white border border-gray400 overflow-hidden">
+          <div className="overflow-hidden text-white bg-gray-400 border rounded-full aspect-square border-gray400">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-6 h-6 relative top-1"
+              className="relative w-6 h-6 font-bold top-1"
             >
               <path
                 fillRule="evenodd"
@@ -77,7 +84,11 @@ const Header = () => {
               />
             </svg>
           </div>
-          {!!user && <div>{user.name}</div>}
+          {!!user && (
+            <div className="hidden text-lg font-semibold md:block text-primary">
+              {user.name}
+            </div>
+          )}
         </Link>
       </header>
     </div>
