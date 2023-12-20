@@ -11,6 +11,7 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const User = require("./Models/Users");
 const Place = require("./Models/Places");
+const Booking = require("./Models/Bookings");
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = "swsgawysawdtwdatfdawd5wfdadf";
@@ -155,3 +156,13 @@ app.put("/places", async (req, res) => {
 app.get("/places", async (req, res) => {
   res.json(await Place.find())
 })
+
+app.post("/bookings", (req, res) => {
+  const { place, checkIn, checkOut, numberOfGuests, name, mobile, price } = req.body;
+  Booking.create({ place, checkIn, checkOut, numberOfGuests, name, mobile, price }).then((doc) => {
+    res.json(doc);
+  }).catch((err) => {
+    throw err;
+  })
+
+});
